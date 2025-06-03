@@ -1074,7 +1074,8 @@ int main(int argc, char *argv[]) {
   printf("%s done capturing GPU information.\n", argv[0]);
 
 // These entries should match GST::test_suite; clever C++ way to range over the enum and cast to string not obvious...
-for (string gpu_name :  {"T4", "A100_40", "A100_80", "K80", "M60", "P40", "P100", "H100", "H200", "V100_16", "V100_32", "Generic", "NVIDIA Graphics Device"}) {
+for (string gpu_name :  {"P4"}) {
+  // , "A100_40", "A100_80", "K80", "M60", "P40", "P100", "H100", "H200", "V100_16", "V100_32", "Generic", "NVIDIA Graphics Device"}) {
 
 if (!gpu_name.compare(string("A100_80"))) { 
     printf("set A100_80\n");
@@ -1124,6 +1125,12 @@ printf("DEBUG_MATRIX_SIZES: Checking matrix size only (no CUDA execution) for: %
         cout << "Initilizing P40 based test suite" << endl;
         gst = GST(GST::P40);
         memgb = 22;
+        break;
+    }
+    if (gpu_name.find("P4", 0) != string::npos) {
+        cout << "Initilizing P4 based test suite" << endl;
+        gst = GST(GST::P4);
+        memgb = 8;
         break;
     }
     if (gpu_name.find("P100", 0) != string::npos) {
